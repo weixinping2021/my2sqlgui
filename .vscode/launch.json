@@ -11,9 +11,6 @@
             "request": "launch",
             "mode": "auto",
             "program": "${fileDirname}"
-           // "args": ["-user","root", "-password","Shangxm@2021","-mode","file","-local-binlog-file","./mysql-bin.000049"]
         }
     ]
 }
-
-//./my2sql  -user root -password xxxx -host 127.0.0.1   -port 3306 -mode file -local-binlog-file ./mysql-bin.011259  -work-type 2sql  -start-file mysql-bin.011259  -start-datetime "2020-07-16 10:20:00" -stop-datetime "2020-07-16 11:00:00" -output-dir ./tmpdir
