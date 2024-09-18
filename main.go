@@ -348,8 +348,8 @@ func main() {
 		my.GConfCmd.Mode = "repl"
 		//fmt.Println(my.GConfCmd.Mode)
 		my.GConfCmd.OutputDir = workDir.Text
-		my.GConfCmd.Databases = append([]string{}, db.Text)
-		my.GConfCmd.Tables = append([]string{}, table.Text)
+		my.GConfCmd.Databases = append([]string{}, db_select.Text)
+		my.GConfCmd.Tables = append([]string{}, table_select.Text)
 		my.GConfCmd.ParseCmdOptions(startTime.Text, stopTime.Text)
 		my.G_HandlingBinEventIndex = &my.BinEventHandlingIndx{EventIdx: 1, Finished: false}
 		var wg, wgGenSql sync.WaitGroup
@@ -362,14 +362,7 @@ func main() {
 			wgGenSql.Add(1)
 			go my.GenForwardRollbackSqlFromBinEvent(i, my.GConfCmd, &wgGenSql)
 		}
-
-		myParser := my.BinFileParser{}
-		myParser.Parser = replication.NewBinlogParser()
-		// donot parse mysql datetime/time column into go time structure, take it as string
-		myParser.Parser.SetParseTime(false)
-		// sqlbuilder not support decimal type
-		myParser.Parser.SetUseDecimal(false)
-		myParser.MyParseAllBinlogFiles(my.GConfCmd)
+		my.ParserAllBinEventsFromRepl(my.GConfCmd)
 		wgGenSql.Wait()
 		close(my.GConfCmd.SqlChan)
 		wg.Wait()

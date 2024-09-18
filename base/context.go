@@ -262,6 +262,7 @@ func (this *ConfCmd) ParseCmdOptions(starttime string, stoptime string) {
 	this.BigTrxRowLimit = this.GetDefaultValueOfRange("BigTrxRowLimit")
 	this.LongTrxSeconds = this.GetDefaultValueOfRange("LongTrxSeconds")
 	this.Threads = uint(this.GetDefaultValueOfRange("Threads"))
+	this.ServerId = 1113306
 
 	if this.Mode != "repl" && this.Mode != "file" {
 		log.Fatalf("unsupported mode=%s, valid modes: file, repl", this.Mode)
